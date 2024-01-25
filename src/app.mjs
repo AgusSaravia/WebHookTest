@@ -23,7 +23,7 @@ const app = new App({
   }
 });
 
-const messageForNewPRs = "¡Gracias pibe!"
+const messageForNewPRs = "¡Testing!"
 async function handlePullRequestOpened({ octokit, payload }) {
   console.log(`Received a PR event for #${payload.pull_request.number}`);
 
@@ -33,7 +33,7 @@ async function handlePullRequestOpened({ octokit, payload }) {
       repo: payload.repository.name,
       issue_number: payload.pull_request.number,
       body: messageForNewPRs,
-      headears: {
+      headers: {
         "x-github-api-version": "2022-11-28"
       },
     });
@@ -59,7 +59,7 @@ app.webhooks.on("pull_request.opened", handlePullRequestOpened);
   const port = 3000;
   const host = 'localhost';
   const path = "/api/webhook";
-  const localWebhookUrl = `https://${host}:${port}${path}`;
+  const localWebhookUrl = `http://${host}:${port}${path}`;
 
   const middleware = createNodeMiddleware(app.webhooks, { path });
 
