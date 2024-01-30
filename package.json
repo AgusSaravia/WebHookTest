@@ -1,0 +1,17 @@
+{
+  "name": "webhookstest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run dev:react\" \"npm run dev:server\"",
+    "dev:react": "cd front && npm start",
+    "dev:server": "cd backend && nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
