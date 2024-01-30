@@ -19,8 +19,8 @@ const RepoInput = () => {
     e.preventDefault();
     try {
       const { repository, username } = formData;
-
-      const response = await fetch("/api/github", {
+      console.log("Submiteado");
+      const response = await fetch("http://localhost:3001/api/github", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +42,7 @@ const RepoInput = () => {
 
   return (
     <div>
-      <form method="POST" onSubmit={handleSubmit}>
+      <form method="GET" onSubmit={handleSubmit}>
         <label htmlFor="Repository">
           Repository:
           <input

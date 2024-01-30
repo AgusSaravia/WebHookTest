@@ -1,11 +1,12 @@
 const express = require('express');
 const { Octokit } = require('@octokit/rest');
-
+const cors = require('cors');
 const dotenv = require('dotenv');
 
 dotenv.config()
 
 const app = express();
+app.use(cors({ origin: 'http://localhost:5173' }));
 app.use(express.json())
 console.log("escucho 1 2 3")
 const octokit = new Octokit({
@@ -14,13 +15,14 @@ const octokit = new Octokit({
 });
 
 app.post('/api/github', async (req, res) => {
+    //Owner and repo comes from form on front end
     const { owner, repo } = req.body
 
     console.log("Escuchando")
     try {
         const response = await octokit.repos.get({
-            owner: "AgusSaravia",
-            repo: "Job-Scraper",
+            owner,
+            repo,
         });
         res.json(response.data)
         console.log("respuesta", response);
@@ -40,6 +42,9 @@ app.post('/api/github', async (req, res) => {
         }
     }
 })
+app.get('/api/github', (req, res) => {
+    res.status(405).json({ error: 'Method Not Allowed' });
+});
 
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
